@@ -27,6 +27,6 @@ archive: clean
 	docker run --rm -i \
 		--mount type=bind,source=$(shell pwd),target=/opt/app \
 		amazonlinux:$(AMZ_LINUX_VERSION) \
-		/bin/bash -c "cd /opt/app && ls -al"
+	/bin/bash -c "ls -al"
 
-		#&& ./build_lambda.sh"
+		# "cd /opt/app && #&& ./build_lambda.sh"
