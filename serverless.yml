@@ -1,0 +1,35 @@
+#serverless.yml
+
+service: bucket-antivirus-function
+package:
+  artifact: build/lambda.zip
+
+provider:
+  name: aws
+  region: us-east-2
+  stage: ${opt:stage, 'dev'}
+
+functions:
+  bucket-antivirus-update-ez-test:
+    handler: update.lambda_handler
+    name: bucket-antivirus-update
+    description: Updates the antivirus definitions and adds them to the bucket.
+    memorySize: 512 # memorySize for this specific function.
+    timeout: 5
+    runtime: python2.7
+    role: arn:aws:iam::497566485214:role/service-role/bucket-antivirus-update
+    events:
+      - schedule: rate(3 hours)
+    environment: # Function level environment variables
+      AV_DEFINITION_S3_BUCKET: ${env:AV_DEFINITION_S3_BUCKET}
+
+  bucket-antivirus-function-ez-test:
+    handler: scan.lambda_handler
+    name: bucket-antivirus-function
+    description: Performs the scan and tags the file CLEAN / INFECTED.
+    memorySize: 1024 # memorySize for this specific function.
+    timeout: 5
+    runtime: python2.7
+    role: arn:aws:iam::497566485214:role/service-role/bucket-antivirus-function
+    environment: # Function level environment variables
+      AV_DEFINITION_S3_BUCKET: ${env:AV_DEFINITION_S3_BUCKET}
