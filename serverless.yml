@@ -15,7 +15,7 @@ functions:
     name: bucket-antivirus-update
     description: Updates the antivirus definitions and adds them to the bucket.
     memorySize: 512 # memorySize for this specific function.
-    timeout: 5
+    timeout: 300
     runtime: python2.7
     role: arn:aws:iam::497566485214:role/service-role/bucket-antivirus-update
     events:
@@ -28,7 +28,7 @@ functions:
     name: bucket-antivirus-function
     description: Performs the scan and tags the file CLEAN / INFECTED.
     memorySize: 1024 # memorySize for this specific function.
-    timeout: 5
+    timeout: 300
     runtime: python2.7
     role: arn:aws:iam::497566485214:role/service-role/bucket-antivirus-function
     environment: # Function level environment variables
