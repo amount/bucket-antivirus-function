@@ -36,5 +36,5 @@ else
 	docker run --rm -i \
 		-v $(current_dir):$(container_dir) \
 		amazonlinux:$(AMZ_LINUX_VERSION) \
-		/bin/bash -c "cd /opt/app && ls -al && ./build_lambda.sh"
+		/bin/bash -c "cd /opt/app && pwd && ls -al && ./build_lambda.sh"
 endif
