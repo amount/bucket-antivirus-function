@@ -31,8 +31,8 @@ ifeq ($(circleci), true)
 		amazonlinux:$(AMZ_LINUX_VERSION) \
 		/bin/bash -c "cd $(container_dir) && ./build_lambda.sh"
 else
-	docker run --rm -ti \
+	docker run --rm  \
 		-v $(current_dir):$(container_dir) \
 		amazonlinux:$(AMZ_LINUX_VERSION) \
-		/bin/bash -c "cd $(container_dir) && ./build_lambda.sh"
+		/bin/bash -c "cd /opt/app && ./build_lambda.sh"
 endif
