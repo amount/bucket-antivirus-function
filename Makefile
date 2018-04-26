@@ -15,7 +15,6 @@
 AMZ_LINUX_VERSION:=latest
 current_dir := $(shell pwd)
 container_dir := /opt/app
-circleci := ${CIRCLECI}
 
 all: archive
 
@@ -23,18 +22,9 @@ clean:
 	rm -rf compile/lambda.zip
 
 archive: clean
-ifeq ($(circleci), true)
-	docker create -v $(container_dir) --name src alpine:3.4 /bin/true
-	docker cp $(current_dir)/. src:$(container_dir)
-	docker run --rm -ti \
-		--volumes-from src \
-		amazonlinux:$(AMZ_LINUX_VERSION) \
-		/bin/bash -c "cd $(container_dir) && ./build_lambda.sh"
-else
 	echo $(current_dir)
 	echo $(shell pwd)
 	docker run --rm -i \
-		-v $(current_dir):$(container_dir) \
+		-v $(shell pwd):/opt/app \
 		amazonlinux:$(AMZ_LINUX_VERSION) \
-		/bin/bash -c "cd /opt/app && pwd && ls -al && ./build_lambda.sh"
-endif
+		/bin/bash -c "cd /opt/app && ls -al && ./build_lambda.sh"
