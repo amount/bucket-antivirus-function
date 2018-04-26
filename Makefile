@@ -25,6 +25,8 @@ archive: clean
 	echo $(current_dir)
 	echo $(shell pwd)
 	docker run --rm -i \
-		-v $(shell pwd):/opt/app \
+		--mount type=bind,source=$(shell pwd),target=/opt/app \
 		amazonlinux:$(AMZ_LINUX_VERSION) \
-		/bin/bash -c "cd /opt/app && ls -al && ./build_lambda.sh"
+		/bin/bash -c "cd /opt/app && ls -al"
+
+		#&& ./build_lambda.sh"
