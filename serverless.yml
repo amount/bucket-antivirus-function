@@ -31,3 +31,6 @@ functions:
     role: arn:aws:iam::#{AWS::AccountId}:role/service-role/bucket-antivirus-function
     environment:
       AV_DEFINITION_S3_BUCKET: ${env:AV_DEFINITION_S3_BUCKET}
+
+plugins:
+  - serverless-pseudo-parameters
