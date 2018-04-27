@@ -8,28 +8,26 @@ provider:
   name: aws
   region: us-east-2
   stage: ${opt:stage, 'dev'}
+  runtime: python2.7
+  timeout: 300
 
 functions:
   bucket-antivirus-update-ez-test:
     handler: update.lambda_handler
     name: bucket-antivirus-update
     description: Updates the antivirus definitions and adds them to the bucket.
-    memorySize: 512 # memorySize for this specific function.
-    timeout: 300
-    runtime: python2.7
-    role: arn:aws:iam::497566485214:role/service-role/bucket-antivirus-update
+    memorySize: 512
+    role: arn:aws:iam::#{AWS::AccountId}:role/service-role/bucket-antivirus-update
     events:
       - schedule: rate(3 hours)
-    environment: # Function level environment variables
+    environment:
       AV_DEFINITION_S3_BUCKET: ${env:AV_DEFINITION_S3_BUCKET}
 
   bucket-antivirus-function-ez-test:
     handler: scan.lambda_handler
     name: bucket-antivirus-function
     description: Performs the scan and tags the file CLEAN / INFECTED.
-    memorySize: 1024 # memorySize for this specific function.
-    timeout: 300
-    runtime: python2.7
-    role: arn:aws:iam::497566485214:role/service-role/bucket-antivirus-function
-    environment: # Function level environment variables
+    memorySize: 1024
+    role: arn:aws:iam::#{AWS::AccountId}:role/service-role/bucket-antivirus-function
+    environment:
       AV_DEFINITION_S3_BUCKET: ${env:AV_DEFINITION_S3_BUCKET}
