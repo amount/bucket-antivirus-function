@@ -15,22 +15,22 @@ provider:
       DATADOG_API_KEY: ${env:DATADOG_API_KEY}
 
 functions:
-  bucket-antivirus-update-ez-test:
+  clambda-antivirus-update-ez-test:
     handler: update.lambda_handler
-    name: bucket-antivirus-update
+    name: clambda-antivirus-update
     description: Updates the antivirus definitions and adds them to the bucket.
     memorySize: 512
-    role: arn:aws:iam::#{AWS::AccountId}:role/service-role/bucket-antivirus-update
+    role: arn:aws:iam::#{AWS::AccountId}:role/service-role/clambda-antivirus-update
     events:
       - schedule: rate(3 hours)
 
 
-  bucket-antivirus-function-ez-test:
+  clambda-antivirus-function-ez-test:
     handler: scan.lambda_handler
-    name: bucket-antivirus-function
+    name: clambda-antivirus-scan
     description: Performs the scan and tags the file CLEAN / INFECTED.
     memorySize: 1024
-    role: arn:aws:iam::#{AWS::AccountId}:role/service-role/bucket-antivirus-function
+    role: arn:aws:iam::#{AWS::AccountId}:role/service-role/clambda-antivirus-scan
 
 plugins:
   - serverless-pseudo-parameters
