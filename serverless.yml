@@ -10,6 +10,9 @@ provider:
   stage: ${opt:stage, 'dev'}
   runtime: python2.7
   timeout: 300
+  environment:
+      AV_DEFINITION_S3_BUCKET: ${env:AV_DEFINITION_S3_BUCKET}
+      DATADOG_API_KEY: ${env:DATADOG_API_KEY}
 
 functions:
   bucket-antivirus-update-ez-test:
@@ -20,8 +23,7 @@ functions:
     role: arn:aws:iam::#{AWS::AccountId}:role/service-role/bucket-antivirus-update
     events:
       - schedule: rate(3 hours)
-    environment:
-      AV_DEFINITION_S3_BUCKET: ${env:AV_DEFINITION_S3_BUCKET}
+
 
   bucket-antivirus-function-ez-test:
     handler: scan.lambda_handler
@@ -29,8 +31,6 @@ functions:
     description: Performs the scan and tags the file CLEAN / INFECTED.
     memorySize: 1024
     role: arn:aws:iam::#{AWS::AccountId}:role/service-role/bucket-antivirus-function
-    environment:
-      AV_DEFINITION_S3_BUCKET: ${env:AV_DEFINITION_S3_BUCKET}
 
 plugins:
   - serverless-pseudo-parameters
