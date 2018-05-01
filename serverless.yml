@@ -2,7 +2,7 @@
 
 service: bucket-antivirus-function
 package:
-  artifact: build/lambda.zip
+  artifact: lambda.zip
 
 provider:
   name: aws
