@@ -11,6 +11,8 @@ RUN yum update -y && yum install -y \
   cpio \
   python27-pip \
   zip 
+
+RUN pip install --upgrade awscli
   
 COPY requirements.txt .
 RUN pip install --no-cache-dir virtualenv
