@@ -18,13 +18,6 @@ lambda_output_file=/opt/app/build/lambda.zip
 
 set -e
 
-yum update -y
-yum install -y cpio python27-pip zip
-pip install --no-cache-dir virtualenv
-virtualenv env
-. env/bin/activate
-pip install --no-cache-dir -r requirements.txt
-
 pushd /tmp
 yumdownloader -x \*i686 --archlist=x86_64 clamav clamav-lib clamav-update
 rpm2cpio clamav-0*.rpm | cpio -idmv
