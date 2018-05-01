@@ -1,4 +1,4 @@
-FROM amazonlinux:latest
+FROM amazonlinux:2018.03
 
 ARG S3_BUCKET
 ARG AWS_ACCESS_KEY_ID
@@ -25,4 +25,4 @@ COPY . .
 RUN ./build_lambda.sh
 ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
 ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-RUN aws --region us-east-2 s3 cp /opt/app/build/lambda.zip s3://${S3_BUCKET}/lambda.zip --force
+RUN aws --region us-east-2 s3 cp /opt/app/build/lambda.zip s3://${S3_BUCKET}/clambda.zip --force
