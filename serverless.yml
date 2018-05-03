@@ -12,10 +12,10 @@ provider:
   timeout: 300
   environment:
       AV_DEFINITION_S3_BUCKET: ${env:AV_DEFINITION_S3_BUCKET}
-      DATADOG_API_KEY: ${env:DATADOG_API_KEY}
+      DATADOG_API_KEY: ${env:DATADOG_API_KEY, ""}
 
 functions:
-  clambda-antivirus-update-ez-test:
+  clambda-antivirus-update:
     handler: update.lambda_handler
     name: clambda-antivirus-update
     description: Updates the antivirus definitions and adds them to the bucket.
@@ -25,7 +25,7 @@ functions:
       - schedule: rate(3 hours)
 
 
-  clambda-antivirus-function-ez-test:
+  clambda-antivirus-function:
     handler: scan.lambda_handler
     name: clambda-antivirus-scan
     description: Performs the scan and tags the file CLEAN / INFECTED.
