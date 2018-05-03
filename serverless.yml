@@ -7,7 +7,7 @@ package:
 provider:
   name: aws
   region: us-east-2
-  stage: ${opt:stage, 'dev'}
+  stage: ${env:DEVOPS_INFRA_ENV}
   runtime: python2.7
   timeout: 300
   environment:
