@@ -13,7 +13,6 @@ provider:
   environment:
       AV_DEFINITION_S3_BUCKET: ${env:AV_DEFINITION_S3_BUCKET}
       DATADOG_API_KEY: ${env:DATADOG_API_KEY}
-      TEST_ENVAR: ${env:TEST_ENVAR}
 
 functions:
   clambda-antivirus-update-ez-test:
