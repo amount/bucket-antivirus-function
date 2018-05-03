@@ -1,4 +1,4 @@
-FROM amazonlinux:2018.03
+FROM amazonlinux:latest
 
 ARG S3_BUCKET
 ARG AWS_ACCESS_KEY_ID
