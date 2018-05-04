@@ -18,6 +18,11 @@ lambda_output_file=/opt/app/build/lambda.zip
 
 set -e
 
+yum update -y
+yum install -y cpio python27-pip zip
+pip install --no-cache-dir virtualenv
+virtualenv env
+. env/bin/activate
 pip install --no-cache-dir -r requirements.txt
 
 pushd /tmp
@@ -26,17 +31,17 @@ rpm2cpio clamav-0*.rpm | cpio -idmv
 rpm2cpio clamav-lib*.rpm | cpio -idmv
 rpm2cpio clamav-update*.rpm | cpio -idmv
 popd
-echo "Making bin"
+echo "--- Making bin directory ---"
 mkdir -p bin
-echo "copying clamscan to bin"
+echo "--- copying clamscan to bin ---"
 cp /tmp/usr/bin/clamscan /tmp/usr/bin/freshclam /tmp/usr/lib64/* bin/.
 echo "DatabaseMirror database.clamav.net" > bin/freshclam.conf
 
-echo "making build"
+echo "--- making build directory ---"
 mkdir -p build
-echo "zipping clamscan file"
+echo "--- zipping clamscan file ---"
 zip -r9 $lambda_output_file *.py bin
-echo "zipping site packages"
+echo "--- listing site packages ---"
 cd env/lib/python2.7/site-packages
 ls
 # zip -r9 $lambda_output_file *
