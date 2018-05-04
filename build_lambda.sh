@@ -16,19 +16,24 @@
 
 lambda_output_file=/opt/app/build/lambda.zip
 
-# set -e
+set -e
 
-# pushd /tmp
-# yumdownloader -x \*i686 --archlist=x86_64 clamav clamav-lib clamav-update
-# rpm2cpio clamav-0*.rpm | cpio -idmv
-# rpm2cpio clamav-lib*.rpm | cpio -idmv
-# rpm2cpio clamav-update*.rpm | cpio -idmv
+pushd /tmp
+yumdownloader -x \*i686 --archlist=x86_64 clamav clamav-lib clamav-update
+rpm2cpio clamav-0*.rpm | cpio -idmv
+rpm2cpio clamav-lib*.rpm | cpio -idmv
+rpm2cpio clamav-update*.rpm | cpio -idmv
 popd
+echo "Making bin"
 mkdir -p bin
+echo "copying clamscan to bin"
 cp /tmp/usr/bin/clamscan /tmp/usr/bin/freshclam /tmp/usr/lib64/* bin/.
 echo "DatabaseMirror database.clamav.net" > bin/freshclam.conf
 
+echo "making build"
 mkdir -p build
+echo "zipping clamscan file"
 zip -r9 $lambda_output_file *.py bin
+echo "zipping site packages"
 cd env/lib/python2.7/site-packages
 zip -r9 $lambda_output_file *
