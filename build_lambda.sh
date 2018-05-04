@@ -36,4 +36,5 @@ echo "zipping clamscan file"
 zip -r9 $lambda_output_file *.py bin
 echo "zipping site packages"
 cd env/lib/python2.7/site-packages
-zip -r9 $lambda_output_file *
+ls
+# zip -r9 $lambda_output_file *
