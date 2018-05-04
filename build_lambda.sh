@@ -18,6 +18,8 @@ lambda_output_file=/opt/app/build/lambda.zip
 
 set -e
 
+pip install --no-cache-dir -r requirements.txt
+
 pushd /tmp
 yumdownloader -x \*i686 --archlist=x86_64 clamav clamav-lib clamav-update
 rpm2cpio clamav-0*.rpm | cpio -idmv
