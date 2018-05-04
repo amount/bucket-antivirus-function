@@ -16,13 +16,13 @@
 
 lambda_output_file=/opt/app/build/lambda.zip
 
-set -e
+# set -e
 
-pushd /tmp
-yumdownloader -x \*i686 --archlist=x86_64 clamav clamav-lib clamav-update
-rpm2cpio clamav-0*.rpm | cpio -idmv
-rpm2cpio clamav-lib*.rpm | cpio -idmv
-rpm2cpio clamav-update*.rpm | cpio -idmv
+# pushd /tmp
+# yumdownloader -x \*i686 --archlist=x86_64 clamav clamav-lib clamav-update
+# rpm2cpio clamav-0*.rpm | cpio -idmv
+# rpm2cpio clamav-lib*.rpm | cpio -idmv
+# rpm2cpio clamav-update*.rpm | cpio -idmv
 popd
 mkdir -p bin
 cp /tmp/usr/bin/clamscan /tmp/usr/bin/freshclam /tmp/usr/lib64/* bin/.
