@@ -41,7 +41,6 @@ echo "--- making build directory ---"
 mkdir -p build
 echo "--- zipping clamscan file ---"
 zip -r9 $lambda_output_file *.py bin
-echo "--- listing site packages ---"
+echo "--- zipping site packages ---"
 cd env/lib/python2.7/site-packages
-ls
-# zip -r9 $lambda_output_file *
+zip -r9 $lambda_output_file *

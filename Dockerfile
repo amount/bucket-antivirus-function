@@ -7,12 +7,12 @@ ARG AWS_SECRET_ACCESS_KEY
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
 
-#RUN yum update -y && yum install -y \
+RUN yum update -y && yum install -y \
  # cpio \
- # python27-pip \
+ python27-pip
  # zip
 
-#RUN pip install --upgrade awscli
+RUN pip install --upgrade awscli
 
 COPY requirements.txt .
 #RUN pip install --no-cache-dir virtualenv
